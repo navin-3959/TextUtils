@@ -1,16 +1,20 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import PropTypes from "prop-types";
-
 
 
 export default function Textform(props) {
     const handleupclick = () => {
         let newtext = text.toUpperCase();
         settext(newtext)
+        props.showalert("converted to uppercase","success");
+
     }
     const handleloclick = () => {
         let newtext = text.toLowerCase();
         settext(newtext)
+        props.showalert("converted to lowercase","success");
+
     }
 
     const handleonchange = (event) => {
@@ -23,24 +27,33 @@ export default function Textform(props) {
         settext(newtext)
     }
 
+    const handleCopy = () => {
+        let text = document.getElementById("floatingTextarea");
+        text.select(); 
+        navigator.clipboard.writeText(text.value); 
+        props.showalert("Text Copied", "success");
+    };
+    
+
     const [text, settext] = useState('')
 
 
 
     return (
         <>
-            <div className="container" style={{color: props.mode ==='dark' ? 'white': 'black'}}>
+            <div className="container" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
                 <h1 className="m m-2">Enter the text to analyze below</h1>
 
                 <div className="form-floating ">
-                    <textarea className="form-control" onChange={handleonchange} style={{backgroundColor: props.mode ==='dark' ? 'grey': 'white',height: "200px",color: props.mode ==='dark' ? 'white': 'black'}} value={text}  placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                    <textarea className="form-control" onChange={handleonchange} style={{ backgroundColor: props.mode === 'dark' ? 'grey' : 'white', height: "200px", color: props.mode === 'dark' ? 'white' : 'black' }} value={text} placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                     <label htmlFor="floatingTextarea"></label>
                 </div>
                 <button className="btn btn-outline-success my-3 mx-3" onClick={handleupclick} type="submit">To Uppercase</button>
                 <button className="btn btn-outline-success my-3 mx-3" onClick={handleloclick} type="submit">To lowercase</button>
                 <button className="btn btn-outline-success my-3 mx-3" onClick={cleartextclick} type="submit">Clear text</button>
+                <button className="btn btn-outline-success my-3 mx-3" onClick={handleCopy} type="submit">Copy text</button>
             </div>
-            <div className="container my-3" style={{color: props.mode ==='dark' ? 'white': 'black'}}>
+            <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
                 <h1>Your test summary</h1>
                 {/* <p>3432 words and 454545 char</p> */}
                 <p>{text.split(" ").length} words and {text.length}</p>
