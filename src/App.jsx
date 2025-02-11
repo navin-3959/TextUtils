@@ -12,14 +12,14 @@ function App() {
     const togglemode = () => {
         if (mode === 'light') {
             setmode('dark');
-            document.body.style.backgroundColor = 'grey'
+            document.body.style.backgroundColor = '#13466e'
             showalert("dark mode has been enabled","success")
-            document.title = "TextUtiles dark-mode"
+            // document.title = "TextUtiles dark-mode"
         } else {
             setmode('light');
             document.body.style.backgroundColor = 'white'
             showalert("light mode has been enabled","success")
-            document.title = "TextUtiles light-mode"
+            // document.title = "TextUtiles light-mode"
 
         }
     };
@@ -43,8 +43,8 @@ function App() {
             <Alert alert={alert} />
             <div className="container my-3">
                 <Routes>
-                    <Route path="/" exact element={<Textform mode={mode} showalert={showalert} />} />
-                    <Route path="/about" element={<About />} />
+                    <Route path="/" exact element={<Textform mode={mode} showalert={showalert} heading=" Try TextUtils - Word counter - Character Counter - Remove extra spaces" />} />
+                    <Route path="/about" element={<About mode={mode}/>} />
                 </Routes>
             </div>
         </Router>
